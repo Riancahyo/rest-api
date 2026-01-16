@@ -4,6 +4,9 @@ import cors from "cors";
 import sequelize from "./config/database.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import { swaggerDocs } from "./swagger.js";
+
+swaggerDocs(app);
 
 dotenv.config();
 
