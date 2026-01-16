@@ -5,6 +5,7 @@ import sequelize from "./config/database.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import { swaggerDocs } from "./swagger.js";
+import rateLimit from "express-rate-limit";
 
 swaggerDocs(app);
 
@@ -22,3 +23,10 @@ sequelize.sync().then(() => {
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
