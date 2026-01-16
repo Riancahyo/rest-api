@@ -60,11 +60,8 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id);
-    if (!product) return res.status(404).json({ message: "Not found" });
-
-    await product.destroy();
-    res.json({ message: "Deleted" });
+    await Product.destroy({ where: { id: req.params.id } });
+    res.json({ message: "Product soft-deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
